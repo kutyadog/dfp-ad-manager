@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+	<title>iScroll and AdMachine demo: Barebones</title>
+
+	<script type="text/javascript" src="AdMachine.js"></script>
+			
+	<title>AdMachine demo: Without iScroll</title>
+
+	<style>
+		.inline_ad {
+			width:100%;height:50px;background-color:#eeeeee;position:relative;
+		}
+		.adhesion_ad {
+			position:fixed; bottom:0;left:0;width:100%;height:50px;overflow:hidden;display:block;margin:auto;z-index:999;background-color:#eeeeee;
+		}
+		.ad_cover {
+			position:absolute;opacity:0;width:100%;height:100%;top:0;left:0;right:0;bottom:0;z-index:2;
+		}
+	</style>
+
+	<script type='text/javascript'>
+		var myScroll;
+		var xAdMachine;
+		
+		function loaded () {
+			//-------prepare ads
+			xAdMachine = new AdMachine();
+
+			//-------set ad variables for your property
+			xAdMachine.baseAdUnit = '/8013/denverpost.com/Mobile-Web';
+					
+			//------------------------declare ads
+			xAdMachine.adArray[ 'section_ad_1' ] = {
+				size: '[[300, 50], [320, 50]]', 
+				targeting: "'mobile',['mobile_section_top']"
+			};
+
+			//googletag.defineSlot(unitName, size, divId)
+
+			//now show the ad
+			xAdMachine.addAdToDiv( 'section_ad_1' );
+
+			//-----5 seconds later, refresh the ad
+			//setTimeout(function() { xAdMachine.addAdToDiv( 'section_ad_1' ); }, 5000);
+			
+			/*
+			function origAdCreate() {
+				var topLevelArray = ['Business', 'Entertainment', 'Home', 'Lifestyle', 'Marketplace', 'News', 'Obituaries', 'Opinion', 'Sports', 'Tools'];
+				xContent = topLevelArray[ Math.floor((Math.random()*10)) ];
+				//console.debug( xContent );
+				var adunit = "/8013/denverpost.com/Mobile-Web"+ xContent;
+
+				googletag.cmd.push(function() {
+					googletag.defineSlot(adunit, [[300, 50], [320, 50]], 'section_ad_1').setTargeting('mobile',['mobile_section_top']).addService(googletag.pubads());
+					googletag.enableServices();
+				});
+			}
+			*/
+		}
+	</script>
+
+
+</head>
+<body onload="loaded()">
+	<div id="section_ad_1_wrapper" class="inline_ad" style="">
+		<div id="section_ad_1_cover" class="ad_cover"></div>
+		<div id="section_ad_1" ></div>
+	</div>
+
+	<button type="button" onclick="xAdMachine.addAdToDiv( 'section_ad_1' );">Refresh Ad</button> 
+
+</body>
+</html>
