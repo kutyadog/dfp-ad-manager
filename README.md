@@ -22,9 +22,11 @@ Then:
 	};
 ```
 
-This sets a global called ``xAdMachine``, dont change this as it is referenced in the class.
+First we set a global called ``xAdMachine``, dont change this as it is referenced in the class.
 
-After that we declare and ad. This would be the same as if we:
+We then declare the base unitName that will be used for all ads. Make sure to change this to your own.
+
+After that we declare an ad. Just for reference, the code below is how we would declare the same ad if we were not using dfp-ad-manager:
 
 ```
 googletag.cmd.push(function() {
@@ -41,7 +43,7 @@ googletag.cmd.push(function() {
 </div>
 ```
 
-The ad is going to go into di with id="section_ad_1".
+The ad is going to go into div with <strong>id="section_ad_1"</strong>.
 The other two div's help us deal with the iframe/iscroll scrolling issues (more on that below)
 Please note the id naming conventions on the other two div's as they need to be consistent and represent the name of the primary div.
 
@@ -54,7 +56,10 @@ xAdMachine.addAdToDiv( 'section_ad_1' );
 Note that the 'section_ad_1' is the ID of the div that you want to put the ad into.
 
 <h2>Solving the iScroll / iframe scrolling issue</h2>
-I often build html5 single page web applications. If you have tried putting an iframe inside of a scrolling area you will know that it will 'break' the scrolling. This is a problem if you want to use DFP ad tags inside any of these scrolling areas. I fix this by inserting the 'cover' divs that are invisible, match the size of the ad and are placed in front of it. This 'ad_cover':
+I often build html5 single page web applications. If you have tried putting an iframe inside of a scrolling area you will know that it will 'break' the scrolling. This is a problem if you want to use DFP ad tags inside any of these scrolling areas. I fix this by inserting 'cover' divs in front of the ads. This 'ad_cover':
+* Is invisible
+* Matches the size of the ad
+* Is on top of the ad (z-index)
 * Blocks the users ability to scroll through the iframe that contains the ad
 * Ignores all touchmove events on it
 * passes clicks through to the ad below dynamically using 'dispatchEvent'
